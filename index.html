@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>A Special Question</title>
+
+    <style>
+        * { 
+            box-sizing: border-box; 
+            -webkit-tap-highlight-color: transparent; 
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fff0f3;
+            font-family: -apple-system, system-ui, sans-serif;
+            overflow: hidden;
+            touch-action: manipulation;
+        }
+
+        #card {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 85%;
+            max-width: 350px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 {
+            color: #ff4d6d;
+            font-size: 1.3rem;
+        }
+
+        .btn-container {
+            margin-top: 30px;
+            height: 200px;
+            position: relative;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+            position: relative;
+            z-index: 100;
+        }
+
+        #noBtn {
+            background-color: #6c757d;
+            color: white;
+            position: absolute;
+            left: 50%;
+            top: 100px;
+            transform: translateX(-50%);
+            z-index: 50;
+            transition: all 0.15s ease-out;
+        }
+
+        .success {
+            display: none;
+        }
+
+        .insta {
+            margin-top: 20px;
+            padding: 10px;
+            border: 2px dashed #ff4d6d;
+            color: #d63384;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="card">
+    <div id="ask">
+        <h2>I know today is a special day for you but I can make everyday special, not just this day.</h2>
+        <p>(A date?)</p>
+
+        <div class="btn-container" id="playArea">
+            <button id="yesBtn">Yes!</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <div id="success" class="success">
+        <h2 style="font-size: 2rem;">YAY! ❤️</h2>
+        <div class="insta">You already have my Instagram, send me a message</div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+<script>
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const playArea = document.getElementById('playArea');
+
+    function teleport() {
+        const areaRect = playArea.getBoundingClientRect();
+        const maxX = areaRect.width - noBtn.offsetWidth;
+        const maxY = areaRect.height - noBtn.offsetHeight;
+
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
+
+        noBtn.style.left = x + 'px';
+        noBtn.style.top = y + 'px';
+        noBtn.style.transform = 'none';
+    }
+
+    // Works on iPhone, Android, Desktop
+    playArea.addEventListener('pointermove', (e) => {
+        const btnRect = noBtn.getBoundingClientRect();
+        const distance = Math.hypot(
+            e.clientX - (btnRect.left + btnRect.width / 2),
+            e.clientY - (btnRect.top + btnRect.height / 2)
+        );
+
+        if (distance < 80) {
+            teleport();
+        }
+    });
+
+    noBtn.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        teleport();
+    });
+
+    yesBtn.addEventListener('click', () => {
+        document.getElementById('ask').style.display = 'none';
+        document.getElementById('success').style.display = 'block';
+
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 }
+        });
+    });
+</script>
+
+</body>
+</html>
