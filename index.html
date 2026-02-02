@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>A Special Question</title>
+    <title>birthday gift</title>
 
     <style>
         * { 
@@ -92,7 +92,10 @@
 
 <div id="card">
     <div id="ask">
-        <h2>I know today is a special day for you but I can make everyday special, not just this day.</h2>
+        <h2>
+            Yasmine, I know today is a special day for you —  
+            but I can make every day special, not just this one.
+        </h2>
         <p>(A date?)</p>
 
         <div class="btn-container" id="playArea">
@@ -102,6 +105,64 @@
     </div>
 
     <div id="success" class="success">
+        <h2 style="font-size: 2rem;">🎉 Happy Birthday Yasmine 🎂</h2>
+        <div class="birthday">
+            DM me to make this date happen ❤️
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+<script>
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const playArea = document.getElementById('playArea');
+
+    function teleport() {
+        const areaRect = playArea.getBoundingClientRect();
+        const maxX = areaRect.width - noBtn.offsetWidth;
+        const maxY = areaRect.height - noBtn.offsetHeight;
+
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
+
+        noBtn.style.left = x + 'px';
+        noBtn.style.top = y + 'px';
+        noBtn.style.transform = 'none';
+    }
+
+    playArea.addEventListener('pointermove', (e) => {
+        const btnRect = noBtn.getBoundingClientRect();
+        const distance = Math.hypot(
+            e.clientX - (btnRect.left + btnRect.width / 2),
+            e.clientY - (btnRect.top + btnRect.height / 2)
+        );
+
+        if (distance < 80) {
+            teleport();
+        }
+    });
+
+    noBtn.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        teleport();
+    });
+
+    yesBtn.addEventListener('click', () => {
+        document.getElementById('ask').style.display = 'none';
+        document.getElementById('success').style.display = 'block';
+
+        confetti({
+            particleCount: 200,
+            spread: 80,
+            origin: { y: 0.6 }
+        });
+    });
+</script>
+
+</body>
+</html>    <div id="success" class="success">
         <h2 style="font-size: 2rem;">🎉 Happy Birthday Yasmine 🎂</h2>
         <div class="birthday">
             DM me to make this date happen ❤️
