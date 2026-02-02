@@ -31,8 +31,6 @@
             width: 85%;
             max-width: 350px;
             text-align: center;
-            position: relative;
-            z-index: 1;
         }
 
         h2 {
@@ -77,13 +75,14 @@
             display: none;
         }
 
-        .insta {
+        .birthday {
             margin-top: 20px;
-            padding: 10px;
-            border: 2px dashed #ff4d6d;
+            padding: 15px;
+            border-radius: 15px;
+            background: #fff0f3;
             color: #d63384;
-            border-radius: 10px;
             font-weight: bold;
+            font-size: 1.1rem;
         }
     </style>
 </head>
@@ -102,8 +101,10 @@
     </div>
 
     <div id="success" class="success">
-        <h2 style="font-size: 2rem;">YAY! ❤️</h2>
-        <div class="insta">You already have my Instagram, send me a message</div>
+        <h2 style="font-size: 2rem;">🎉 Happy Birthday! 🎂</h2>
+        <div class="birthday">
+            I hope today is filled with smiles, surprises, and everything that makes you happy ❤️
+        </div>
     </div>
 </div>
 
@@ -127,7 +128,6 @@
         noBtn.style.transform = 'none';
     }
 
-    // Works on iPhone, Android, Desktop
     playArea.addEventListener('pointermove', (e) => {
         const btnRect = noBtn.getBoundingClientRect();
         const distance = Math.hypot(
@@ -150,8 +150,8 @@
         document.getElementById('success').style.display = 'block';
 
         confetti({
-            particleCount: 150,
-            spread: 70,
+            particleCount: 200,
+            spread: 80,
             origin: { y: 0.6 }
         });
     });
